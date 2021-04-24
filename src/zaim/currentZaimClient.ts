@@ -41,4 +41,14 @@ export class CurrentZaimClient extends ZaimClient {
     const response = await this.getIncomes()
     return response.money
   }
+
+  /**
+   * バックアップ用の全期間の収入、支出レコードを出力する
+   * NOTE: zaimClient 側で期間を調整してから実行すること
+   */
+  async getAllMoneyData(): Promise<Money[]> {
+    const allPaymentsResponse = await this.getPayments()
+    const allIncomesResponse = await this.getIncomes()
+    return allPaymentsResponse.money.concat(allIncomesResponse.money)
+  }
 }
