@@ -27,12 +27,4 @@ export class ZaimClient {
     })
     return JSON.parse(response) as MoneyResponse
   }
-
-  protected async getPayments(): Promise<MoneyResponse> {
-    return this.getMoney('payment')
-  }
-
-  protected async getIncomes(): Promise<MoneyResponse> {
-    return this.getMoney('income')
-  }
 }
