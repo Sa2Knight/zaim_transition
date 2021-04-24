@@ -16,30 +16,25 @@ export class CurrentZaimClient extends ZaimClient {
    * ただし「キャリーオーバー」レコードは除外する
    */
   async getAllPrivatePayments(): Promise<Money[]> {
-    const response = await this.getMoney('payment')
-    const payments = response.money.filter(m => {
+    return (await this.getMoney('payment')).filter(m => {
       return m.comment.match('私費') && !m.comment.match('キャリーオーバー')
     })
-    return payments
   }
 
   /**
    * 全ての公費を取得する
    */
   async getAllPublicPayments(): Promise<Money[]> {
-    const response = await this.getMoney('payment')
-    const payments = response.money.filter(m => {
+    return (await this.getMoney('payment')).filter(m => {
       return !m.comment.match('私費')
     })
-    return payments
   }
 
   /**
    * 全ての収入を取得する
    */
   async getAllIncomes(): Promise<Money[]> {
-    const response = await this.getMoney('income')
-    return response.money
+    return await this.getMoney('income')
   }
 
   /**
@@ -49,6 +44,6 @@ export class CurrentZaimClient extends ZaimClient {
   async getAllMoneyData(): Promise<Money[]> {
     const allPaymentsResponse = await this.getMoney('payment')
     const allIncomesResponse = await this.getMoney('income')
-    return allPaymentsResponse.money.concat(allIncomesResponse.money)
+    return allPaymentsResponse.concat(allIncomesResponse)
   }
 }
