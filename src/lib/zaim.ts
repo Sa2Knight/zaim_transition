@@ -3,7 +3,8 @@ import { Money, MoneyResponse } from './type'
 
 class ZaimClient {
   public client: Zaim
-  protected START_DATE = new Date('2017/10/01')
+
+  protected START_DATE = new Date('2017/10/01') // NOTE: 結婚による家計合併を行った日
   protected END_DATE = new Date('2021/05/01')
   // protected START_DATE = new Date('2021/04/01')
   // protected END_DATE = new Date('2021/05/01')
