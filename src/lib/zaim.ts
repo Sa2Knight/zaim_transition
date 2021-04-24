@@ -5,6 +5,8 @@ class ZaimClient {
   public client: Zaim
   protected START_DATE = new Date('2017/10/01')
   protected END_DATE = new Date('2021/05/01')
+  // protected START_DATE = new Date('2021/04/01')
+  // protected END_DATE = new Date('2021/05/01')
 
   constructor(key: string, secret: string, token: string, tokenSecret: string) {
     this.client = new Zaim({
@@ -24,6 +26,14 @@ class ZaimClient {
     })
     return JSON.parse(response) as MoneyResponse
   }
+
+  async getPayments(): Promise<MoneyResponse> {
+    return this.getMoney('payment')
+  }
+
+  async getIncomes(): Promise<MoneyResponse> {
+    return this.getMoney('income')
+  }
 }
 
 export class CurrentZaimClient extends ZaimClient {
@@ -41,10 +51,29 @@ export class CurrentZaimClient extends ZaimClient {
    * ただし「キャリーオーバー」レコードは除外する
    */
   async getAllPrivatePayments(): Promise<Money[]> {
-    const response = await this.getMoney('payment')
+    const response = await this.getPayments()
     const payments = response.money.filter(m => {
       return m.comment.match('私費') && !m.comment.match('キャリーオーバー')
     })
     return payments
+  }
+
+  /**
+   * 全ての公費を取得する
+   */
+  async getAllPublicPayments(): Promise<Money[]> {
+    const response = await this.getPayments()
+    const payments = response.money.filter(m => {
+      return !m.comment.match('私費')
+    })
+    return payments
+  }
+
+  /**
+   * 全ての収入を取得する
+   */
+  async getAllIncomes(): Promise<Money[]> {
+    const response = await this.getIncomes()
+    return response.money
   }
 }
