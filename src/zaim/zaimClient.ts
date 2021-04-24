@@ -1,5 +1,5 @@
 import Zaim from 'zaim'
-import { MoneyResponse } from './type'
+import { MoneyResponse, GenreResponse, CategoryResponse, Genre, Category } from './type'
 
 export class ZaimClient {
   public client: Zaim
@@ -26,5 +26,17 @@ export class ZaimClient {
       end_date: this.END_DATE
     })
     return JSON.parse(response) as MoneyResponse
+  }
+
+  public async getAllCategories(): Promise<Category[]> {
+    const response = await this.client.getCategories()
+    const categories = (JSON.parse(response) as CategoryResponse).categories
+    return categories.filter(c => c.active === 1)
+  }
+
+  public async getAllGenres(): Promise<Genre[]> {
+    const response = await this.client.getGenre()
+    const genres = (JSON.parse(response) as GenreResponse).genres
+    return genres.filter(g => g.active === 1)
   }
 }

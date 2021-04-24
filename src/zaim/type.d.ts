@@ -18,7 +18,39 @@ export type Money = {
   place: string
 }
 
+export type Category = {
+  id: number
+  mode: string
+  name: string
+  sort: number
+  active: number
+  modified: string
+  parent_category_id: number
+  local_id: number
+}
+
+export type Genre = {
+  id: number
+  category_id: number
+  name: string
+  sort: number
+  active: number
+  modified: string
+  parent_genre_id: number
+  local_id: number
+}
+
 export type MoneyResponse = {
   money: Money[]
+  requested: number
+}
+
+export type CategoryResponse = {
+  categories: Category[]
+  requested: number
+}
+
+export type GenreResponse = {
+  genres: Genre[]
   requested: number
 }
