@@ -1,13 +1,9 @@
 import Zaim from 'zaim'
+import { TRANSFORM_END_DATE, TRANSFORM_START_DATE } from '../util'
 import { MoneyResponse, GenreResponse, CategoryResponse, Money, Genre, Category } from './type'
 
 export class ZaimClient {
   public client: Zaim
-
-  protected START_DATE = new Date('2017/10/01') // NOTE: 結婚による家計合併を行った日
-  protected END_DATE = new Date('2021/05/01')
-  // protected START_DATE = new Date('2015/03/01')
-  // protected END_DATE = new Date('2021/05/01')
 
   constructor(key: string, secret: string, token: string, tokenSecret: string) {
     this.client = new Zaim({
@@ -22,8 +18,8 @@ export class ZaimClient {
     const response = await this.client.getMoney({
       mode: mode,
       order: 'date',
-      start_date: this.START_DATE,
-      end_date: this.END_DATE
+      start_date: TRANSFORM_START_DATE,
+      end_date: TRANSFORM_END_DATE
     })
     return (JSON.parse(response) as MoneyResponse).money
   }

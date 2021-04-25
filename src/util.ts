@@ -1,6 +1,9 @@
 import { Dayjs } from 'dayjs'
 import * as dayjs from 'dayjs'
 
+export const TRANSFORM_START_DATE = new Date('2017/10/01') // NOTE: 結婚による家計合併を行った日
+export const TRANSFORM_END_DATE = new Date('2021/05/01')
+
 /**
  * 旧アカウントから新アカウントへの、カテゴリーID/ジャンルIDの変換を行う
  * 変換時に情報が失われる場合、コメントを拡張する
@@ -33,9 +36,9 @@ export function convertGenreOption(categoryId: number, genreId: number, comment:
 /**
  * 指定した期間の月初日時の配列を戻す
  */
-export function monthlyFirstDays(dateFrom: Dayjs, dateTo: Dayjs): Dayjs[] {
-  const startDay = dateFrom.startOf('day')
-  const endDay = dateTo.startOf('day')
+export function monthlyFirstDays(): Dayjs[] {
+  const startDay = dayjs(TRANSFORM_START_DATE).startOf('day')
+  const endDay = dayjs(TRANSFORM_END_DATE).startOf('day')
   const dateList: Dayjs[] = []
 
   let iteratorDay = startDay
