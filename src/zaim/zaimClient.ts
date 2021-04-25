@@ -14,7 +14,7 @@ export class ZaimClient {
     })
   }
 
-  protected async getMoney(mode: 'payment' | 'income'): Promise<Money[]> {
+  public async getMoney(mode: 'payment' | 'income'): Promise<Money[]> {
     const response = await this.client.getMoney({
       mode: mode,
       order: 'date',
@@ -45,5 +45,13 @@ export class ZaimClient {
       comment: money.comment,
       place: money.place
     })
+  }
+
+  public async totalBalance(): Promise<number> {
+    const payments = await this.getMoney('payment')
+    const incomes = await this.getMoney('income')
+    const totalPaymentAmount = payments.reduce((total, payment) => (total += payment.amount), 0)
+    const totalIncomeAmount = incomes.reduce((total, income) => (total += income.amount), 0)
+    return totalIncomeAmount - totalPaymentAmount
   }
 }

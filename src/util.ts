@@ -2,7 +2,7 @@ import { Dayjs } from 'dayjs'
 import * as dayjs from 'dayjs'
 import { Money } from './zaim/type'
 
-export const TRANSFORM_START_DATE = new Date('2017/10/01') // NOTE: 結婚による家計合併を行った日
+export const TRANSFORM_START_DATE = new Date('2017/09/30') // NOTE: 結婚による家計合併を行った日
 export const TRANSFORM_END_DATE = new Date('2021/04/30')
 // export const TRANSFORM_START_DATE = new Date('2020/05/01') // NOTE: 結婚による家計合併を行った日
 // export const TRANSFORM_END_DATE = new Date('2020/06/01')

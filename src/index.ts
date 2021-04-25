@@ -71,11 +71,13 @@ const actions = {
 }
 
 ;(async () => {
-  console.log(new Date())
+  console.log('public')
+  console.log(await publicZaimClient.totalBalance())
+  console.log('private')
+  console.log(await privateZaimClient.totalBalance())
   // await actions.private.addPocketMoneyIncomes()
   // await actions.private.transcribePayments()
   // await actions.public.transcribeIncomes()
   // await actions.public.addPocketMoneyPayments()
   // await actions.public.transcribePayments()
-  console.log(new Date())
 })()
