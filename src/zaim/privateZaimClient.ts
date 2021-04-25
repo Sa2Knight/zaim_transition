@@ -1,4 +1,5 @@
 import { Dayjs } from 'dayjs'
+import { Money } from './type'
 import { ZaimClient } from './zaimClient'
 
 export class PrivateZaimClient extends ZaimClient {

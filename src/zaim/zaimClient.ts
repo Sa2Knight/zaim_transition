@@ -35,4 +35,15 @@ export class ZaimClient {
     const genres = (JSON.parse(response) as GenreResponse).genres
     return genres.filter(g => g.active === 1)
   }
+
+  public async createPayment(money: Money): Promise<void> {
+    return this.client.createPay({
+      date: money.date,
+      category_id: money.category_id,
+      genre_id: money.genre_id,
+      amount: money.amount,
+      comment: money.comment,
+      place: money.place
+    })
+  }
 }

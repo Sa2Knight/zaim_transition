@@ -20,6 +20,17 @@ async function addAllIncomesToPrivateAccount() {
 }
 
 /**
+ * 私費用アカウントに全支出レコードを追加する
+ */
+async function addAllPaymentsToPrivateAccount() {
+  const currentPayments = await currentZaimClient.getAllPrivatePayments()
+  for (const payment of currentPayments) {
+    await privateZaimClient.createPayment(Util.convertMoneyOption(payment))
+    console.log(`...私費アカウントへの支出レコードを追加 ${payment.date}`)
+  }
+}
+
+/**
  * 公費用アカウントに全収入レコードを追加する
  */
 async function addAllIncomesToPublicAccount() {
@@ -31,6 +42,7 @@ async function addAllIncomesToPublicAccount() {
 }
 
 ;(async () => {
+  await addAllPaymentsToPrivateAccount()
   // await addAllIncomesToPrivateAccount()
   // await addAllIncomesToPublicAccount()
 })()
