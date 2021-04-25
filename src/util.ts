@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs'
 import * as dayjs from 'dayjs'
 
 /**
@@ -30,9 +31,26 @@ export function convertGenreOption(categoryId: number, genreId: number, comment:
 }
 
 /**
+ * 指定した期間の月初日時の配列を戻す
+ */
+export function monthlyFirstDays(dateFrom: Dayjs, dateTo: Dayjs): Dayjs[] {
+  const startDay = dateFrom.startOf('day')
+  const endDay = dateTo.startOf('day')
+  const dateList: Dayjs[] = []
+
+  let iteratorDay = startDay
+  while (iteratorDay.unix() <= endDay.unix()) {
+    dateList.push(dayjs(iteratorDay))
+    iteratorDay = iteratorDay.add(1, 'month')
+  }
+
+  return dateList
+}
+
+/**
  * 指定した日付時点でのお小遣い額を戻す
  */
-export function getPocketMoneyBudget(date: dayjs.Dayjs): number {
+export function getPocketMoneyBudget(date: Dayjs): number {
   if (date <= dayjs('2018/05/01').endOf('month')) {
     return 50000
   } else {
