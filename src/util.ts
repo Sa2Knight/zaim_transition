@@ -2,10 +2,10 @@ import { Dayjs } from 'dayjs'
 import * as dayjs from 'dayjs'
 import { Money } from './zaim/type'
 
-// export const TRANSFORM_START_DATE = new Date('2017/10/01') // NOTE: 結婚による家計合併を行った日
-// export const TRANSFORM_END_DATE = new Date('2021/05/01')
-export const TRANSFORM_START_DATE = new Date('2021/03/01') // NOTE: 結婚による家計合併を行った日
-export const TRANSFORM_END_DATE = new Date('2021/04/01')
+export const TRANSFORM_START_DATE = new Date('2017/10/01') // NOTE: 結婚による家計合併を行った日
+export const TRANSFORM_END_DATE = new Date('2021/05/01')
+// export const TRANSFORM_START_DATE = new Date('2020/05/01') // NOTE: 結婚による家計合併を行った日
+// export const TRANSFORM_END_DATE = new Date('2020/06/01')
 
 /**
  * 旧アカウントから新アカウントへの、カテゴリーID/ジャンルIDの変換を行う
@@ -18,7 +18,7 @@ export function convertMoneyOption(money: Money): Money {
 
   // 交通費/駐輪場 → 交通費/その他
   if (category_id == 103 && genre_id == 8857041) {
-    return { ...money, category_id: 103, genre_id: 8857041, comment: `駐輪代 ${comment}` }
+    return { ...money, category_id: 103, genre_id: 10399, comment: `駐輪代 ${comment}` }
   }
   // 食費/飲み会 → 交際費/飲み会
   if (category_id == 101 && genre_id == 9380317) {
@@ -66,4 +66,15 @@ export function getPocketMoneyBudget(date: Dayjs): number {
   } else {
     return 60000
   }
+}
+
+/**
+ * 一定時間待機する
+ */
+export function sleep(millisec: number = 100): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, millisec)
+  })
 }
