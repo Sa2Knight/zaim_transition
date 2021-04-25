@@ -41,8 +41,20 @@ async function addAllIncomesToPublicAccount() {
   }
 }
 
+/**
+ * 公費用アカウントに全支出レコードを追加する
+ */
+async function addAllPaymentsToPublicAccount() {
+  const currentPayments = await currentZaimClient.getAllPublicPayments()
+  for (const payment of currentPayments) {
+    await publicZaimClient.createPayment(Util.convertMoneyOption(payment))
+    console.log(`...公費アカウントへの支出レコードを追加 ${payment.date}`)
+  }
+}
+
 ;(async () => {
-  await addAllPaymentsToPrivateAccount()
+  await addAllPaymentsToPublicAccount()
+  // await addAllPaymentsToPrivateAccount()
   // await addAllIncomesToPrivateAccount()
   // await addAllIncomesToPublicAccount()
 })()
