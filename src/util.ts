@@ -1,3 +1,5 @@
+import * as dayjs from 'dayjs'
+
 /**
  * 旧アカウントから新アカウントへの、カテゴリーID/ジャンルIDの変換を行う
  * 変換時に情報が失われる場合、コメントを拡張する
@@ -25,4 +27,15 @@ export function convertGenreOption(categoryId: number, genreId: number, comment:
   }
   // それ以外はそのままでOK
   return { categoryId, genreId, comment }
+}
+
+/**
+ * 指定した日付時点でのお小遣い額を戻す
+ */
+export function getPocketMoneyBudget(date: dayjs.Dayjs): number {
+  if (date <= dayjs('2018/05/01').endOf('month')) {
+    return 50000
+  } else {
+    return 60000
+  }
 }
