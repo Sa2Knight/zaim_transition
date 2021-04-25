@@ -17,7 +17,7 @@ export class CurrentZaimClient extends ZaimClient {
    */
   async getAllPrivatePayments(): Promise<Money[]> {
     return (await this.getMoney('payment')).filter(m => {
-      return m.comment.match('私費') && !m.comment.match('キャリーオーバー')
+      return m.comment.match('私費') && !m.comment.match('キャリーオーバー') && !m.comment.match('小遣い積立')
     })
   }
 

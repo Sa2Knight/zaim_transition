@@ -12,7 +12,7 @@ export class PublicZaimClient extends ZaimClient {
     )
   }
 
-  async duplicateIncomeFrom(money: Money) {
+  async transcribeIncomeFrom(money: Money) {
     const { date, place, category_id, amount, comment } = money
     return this.client.createIncome({ date, place, category_id, amount, comment })
   }

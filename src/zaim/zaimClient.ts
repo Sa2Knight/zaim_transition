@@ -36,7 +36,7 @@ export class ZaimClient {
     return genres.filter(g => g.active === 1)
   }
 
-  public async duplicatePaymentFrom(money: Money): Promise<void> {
+  public async transcribePaymentFrom(money: Money): Promise<void> {
     return this.client.createPay({
       date: money.date,
       category_id: money.category_id,

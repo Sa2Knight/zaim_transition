@@ -9,7 +9,7 @@ const publicZaimClient = new Zaim.PublicZaimClient()
 const privateZaimClient = new Zaim.PrivateZaimClient()
 
 const actions = {
-  toPrivate: {
+  private: {
     /**
      * 私費用アカウントにお小遣い収入レコードを新規登録する
      */
@@ -25,15 +25,15 @@ const actions = {
      * 私費用アカウントに、私費の支出を転写する
      */
     async transcribePayments() {
-      const currentIncomes = await currentZaimClient.getAllIncomes()
-      for (const income of currentIncomes) {
+      const payments = await currentZaimClient.getAllPrivatePayments()
+      for (const payment of payments) {
         await Util.sleep()
-        await publicZaimClient.duplicateIncomeFrom(income)
-        console.log(`...公費アカウントへの収入レコードを追加 ${income.date}`)
+        await privateZaimClient.transcribePaymentFrom(payment)
+        console.log(`...私費アカウントへの支出レコードを追加 ${payment.date}`)
       }
     }
   },
-  toPublic: {
+  public: {
     /**
      * 公費用アカウントに、お小遣いの支出レコードを新規登録する
      */
@@ -52,7 +52,7 @@ const actions = {
       const currentIncomes = await currentZaimClient.getAllIncomes()
       for (const income of currentIncomes) {
         await Util.sleep()
-        await publicZaimClient.duplicateIncomeFrom(income)
+        await publicZaimClient.transcribeIncomeFrom(income)
         console.log(`...公費アカウントへの収入レコードを追加 ${income.date}`)
       }
     },
@@ -63,11 +63,19 @@ const actions = {
       const currentPayments = await currentZaimClient.getAllPublicPayments()
       for (const payment of currentPayments) {
         await Util.sleep()
-        await publicZaimClient.duplicatePaymentFrom(Util.convertMoneyOption(payment))
+        await publicZaimClient.transcribePaymentFrom(Util.convertMoneyOption(payment))
         console.log(`...公費アカウントへの支出レコードを追加 ${payment.date}`)
       }
     }
   }
 }
 
-;(async () => {})()
+;(async () => {
+  console.log(new Date())
+  // await actions.private.addPocketMoneyIncomes()
+  // await actions.private.transcribePayments()
+  // await actions.public.transcribeIncomes()
+  // await actions.public.addPocketMoneyPayments()
+  // await actions.public.transcribePayments()
+  console.log(new Date())
+})()
